@@ -1,29 +1,35 @@
 <template>
   <div id="app">
-    <div id="calendar-week" class="container">
-    </div>
-    <div id="calendar-entry">
-    <!-- Markup for calendar entry -->
-    </div>
+    <CalendarWeek />
+    <CalendarEntry />
   </div>
 </template>
 
 <script>
+import CalendarWeek from './components/CalendarWeek.vue';
+import CalendarEntry from './components/CalendarEntry.vue';
 export default {
   name: 'App',
   components: {
+    CalendarWeek,
+    CalendarEntry
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 html, body {
   height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #app {
-}
-#calendar-week {
-}
-#calendar-entry {
+    height: inherit;
+    background: #6e6e6e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
 }
 </style>
