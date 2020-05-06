@@ -2,13 +2,13 @@
 <template>
     <div id="calendar-entry" class="container">
        <div class="calendar-entry-note">
-            <input type="text" placeholder="New Event" v-model="inputEntry"/>
+            <input type="text" placeholder="New Event" v-model="inputEntry" @keyup="activeError = inputEntry.trim() ? false : isValid"/>
             <p class="calendar-entry-day">
                 Day of event: <span class="bold">{{ titleOfActiveDay }}</span>
             </p>
             <a class="btn btn-primary" @click="submitEvent(inputEntry)">Submit</a>
         </div>
-        <p style="color: red; font-size: 13px" v-if="error">
+        <p class="error" v-if="activeError">
             You must type something first!
         </p>
     </div>
@@ -21,7 +21,8 @@ export default {
     data() {
         return {
             inputEntry: '',
-            error: false
+            activeError: false,
+            isValid: false
         }
     },
     computed: {
@@ -31,11 +32,13 @@ export default {
     },
     methods: {
         submitEvent (eventDetailsName) {
-            this.error = eventDetailsName ? false : true;
-            if (eventDetailsName) {
+            this.isValid = true,
+            this.activeError = eventDetailsName.trim() ? false : true;
+            if (eventDetailsName.trim()) {
                 store.submitEvent(eventDetailsName);
                 this.inputEntry = '';
-                this.error = false;
+                this.activeError = false;
+                this.isValid = false;
             }
         }
     },
@@ -85,6 +88,10 @@ export default {
             color: #fff;
         }
     }
+  }
+  .error {
+    color: red; 
+    font-size: 13px;
   }
 }
 </style>
