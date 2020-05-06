@@ -71,10 +71,10 @@ export default {
             this.change({ line, quantity: $event});
         }
     },
-    filters: {
-        currency(value) {
-            return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
-        }
-    },
+    // filters: {
+    //     currency(value) {
+    //         return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
+    //     }
+    // },
 }
 </script>

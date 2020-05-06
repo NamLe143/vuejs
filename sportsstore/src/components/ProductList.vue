@@ -29,11 +29,11 @@ export default {
     computed: {
         ...mapGetters({products: "processedProducts"})
     },
-    filters: {
-        currency(value) {
-            return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
-        }
-    },
+    // filters: {
+    //     currency(value) {
+    //         return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
+    //     }
+    // },
     methods: {
         ...mapMutations({ addProduct: "cart/addProduct" }),
         handleProductAdd(product) {

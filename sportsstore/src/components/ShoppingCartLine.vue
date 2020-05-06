@@ -43,10 +43,10 @@ export default {
             this.$emit("remove", this.line)
         }
     },
-    filters: {
-        currency(value) {
-            return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
-        }
-    },
+    // filters: {
+    //     currency(value) {
+    //         return new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
+    //     }
+    // },
 }
 </script>
