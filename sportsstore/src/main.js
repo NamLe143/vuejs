@@ -7,6 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
 import store from "./store";
 import router from "./router";
+import Vuelidate from "vuelidate";
+
+Vue.use(Vuelidate);
+
 Vue.filter("currency", (value) => new Intl.NumberFormat("en-US",
  { style: "currency", currency: "USD" }).format(value));
 new Vue({

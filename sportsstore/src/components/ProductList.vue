@@ -41,5 +41,8 @@ export default {
             this.$router.push("/cart")
         }
     },
+    created() {
+        console.log(this.$store.state)
+    },
 }
 </script>

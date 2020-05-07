@@ -15,6 +15,7 @@
                             <th>Product</th>
                             <th class="text-right">Price</th>
                             <th class="text-right">Subtotal</th>
+                            <th class="text-center" v-if="lines.length">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
