@@ -20,6 +20,7 @@
 import ProductList from "./ProductList";
 import CategoryControls from "./CategoryControls"
 import CartSummary from "./CartSummary";
+
 export default {
     name: "store",
     components: {

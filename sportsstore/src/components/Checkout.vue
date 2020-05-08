@@ -53,16 +53,45 @@
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                name: null
+import { required, email } from "vuelidate/lib/validators";
+import ValidationError from "./ValidationError";
+import { mapActions } from "vuex";
+export default {
+    name: "checkout",
+    components: { ValidationError },
+    data() {
+        return {
+            order: {
+                name: null,
+                email: null,
+                address: null,
+                city: null,
+                zip: null
+            }
+        }
+    },
+    validations: {
+        order: {
+            name: { required },
+            email: { required, email },
+            address: { required },
+            city: { required },
+            zip: { required }
+        }
+    },
+    methods: {
+        ...mapActions({
+        "storeOrder": "orders/storeOrder",
+        "clearCart": "cart/clearCartData"
+        }),
+        async submitOrder() {
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                let order = await this.storeOrder(this.order);
+                this.clearCart();
+                this.$router.push(`/thanks/${order}`);
             }
         },
-        methods: {
-            submitOrder() {
-
-            }
-        },
-    }
+    },
+}
 </script>
