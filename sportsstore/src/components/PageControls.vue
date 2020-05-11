@@ -1,29 +1,31 @@
 <template>
-    <div class="row mt-2">
-        <div class="col form-group">
-            <select class="form-control" v-on:change="changePageSize">
-                <option value="4">4 per page</option>
-                <option value="8">8 per page</option>
-                <option value="12">12 per page</option>
-            </select>
-        </div>
-        <div class="text-right col" v-if="pageCount > 1">
-            <button v-bind:disabled="currentPage === 1" v-on:click="setCurrentPage(currentPage - 1)"
-                class="btn btn-secondary mx -1">Previous</button>
-            <span v-if="currentPage > 4">
-                <button v-on:click="setCurrentPage(1)" class="btn btn-secondary mx-1">1</button>
-                <span class="h4">...</span>
-            </span>
-            <span class="mx-1">
-                <button v-for="i in pageNumbers" v-bind:key="i" class="btn btn-secpmdary"
-                    v-bind:class="{ 'btn-primary': i === currentPage }" v-on:click="setCurrentPage(i)">{{ i }}</button>
-            </span>
-            <span v-if="currentPage <= pageCount - 4">
-                <span class="h4">...</span>
-                <button v-on:click="setCurrentPage(pageCount)" class="btn btn-secondary mx-1">{{ pageCount}}</button>
-            </span>
-            <button v-bind:disabled="currentPage === pageCount" v-on:click="setCurrentPage(currentPage + 1)"
-                class="btn btn-secondary mx-1">Next</button>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col form-group">
+                <select class="form-control" v-on:change="changePageSize">
+                    <option value="8">8 per page</option>
+                    <option value="16">16 per page</option>
+                    <option value="24">24 per page</option>
+                </select>
+            </div>
+            <div class="text-right col" v-if="pageCount > 1">
+                <button v-bind:disabled="currentPage === 1" v-on:click="setCurrentPage(currentPage - 1)"
+                    class="btn btn-secondary mx -1">Previous</button>
+                <span v-if="currentPage > 4">
+                    <button v-on:click="setCurrentPage(1)" class="btn btn-secondary mx-1">1</button>
+                    <span class="h4">...</span>
+                </span>
+                <span class="mx-1">
+                    <button v-for="i in pageNumbers" v-bind:key="i" class="btn btn-secpmdary"
+                        v-bind:class="{ 'btn-primary': i === currentPage }" v-on:click="setCurrentPage(i)">{{ i }}</button>
+                </span>
+                <span v-if="currentPage <= pageCount - 4">
+                    <span class="h4">...</span>
+                    <button v-on:click="setCurrentPage(pageCount)" class="btn btn-secondary mx-1">{{ pageCount}}</button>
+                </span>
+                <button v-bind:disabled="currentPage === pageCount" v-on:click="setCurrentPage(currentPage + 1)"
+                    class="btn btn-secondary mx-1">Next</button>
+            </div>
         </div>
     </div>
 </template>

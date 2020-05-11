@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import Axios from "axios";
 import CartModule from "./cart";
 import OrdersModule from "./orders";
+import AuthModule from "./auth";
+
 
 Vue.use(Vuex);
 
@@ -17,10 +19,12 @@ export default new Vuex.Store({
         categoriesData: [],
         // productsTotal: 0,
         currentPage: 1,
-        pageSize: 4,
+        pageSize: 8,
         currentCategory: "All",
         pages: [],
-        serverPageCount: 0
+        serverPageCount: 0,
+        searchTerm: "",
+        showSearch: false,
     },
     getters: {
         // productsFilterCategory: state => state.products.filter(p => state.currentCategory === "All" || p.category === state.currentCategory),
@@ -69,6 +73,13 @@ export default new Vuex.Store({
         setPageCount(state, count) {
             state.serverPageCount = Math.ceil(Number(count) / state.pageSize);
         },
+        setSearchTerm(state, term) {
+            state.searchTerm = term;
+            state.currentPage = 1;
+        },
+        setShowSearch(state, show) {
+            state.showSearch = show;
+        }
     },
     actions: {
         async getData(context) {
@@ -83,7 +94,12 @@ export default new Vuex.Store({
             if (context.state.currentCategory != "All") {
                 url += `&category=${context.state.currentCategory}`;
             }
+            if (context.state.searchTerm) {
+                console.log(context.state.searchTerm)
+                url += `&q=${context.state.searchTerm.trim()}`;
+            }
             let response = await Axios.get(url);
+            console.log(response, 'response')
             context.commit("setPageCount", response.headers["x-total-count"]);
             context.commit("addPage", {
                 number: context.state.currentPage,
@@ -106,10 +122,21 @@ export default new Vuex.Store({
             context.commit("clearPages");
             context.commit("_setCurrentCategory", category);
             context.dispatch("getPage");
+        },
+        search(context, term) {
+            context.commit("setSearchTerm", term);
+            context.commit("clearPages");
+            context.dispatch("getPage")
+        },
+        clearSearchTerm(context) {
+            context.commit("setSearchTerm", "");
+            context.commit("clearPages");
+            context.dispatch("getPage");
         }
     },
     modules: {
         cart: CartModule,
-        orders: OrdersModule
+        orders: OrdersModule,
+        auth: AuthModule
     }
 })
